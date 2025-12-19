@@ -31,7 +31,6 @@ dist-ssr
 database.rules.json
 
 # Firebase Hosting
-/firebase.json
 *.cache
 hosting/.cache
 
