@@ -8,22 +8,45 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer utilities {
+  .journal {
+    background-image: linear-gradient(
+        to right,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      );
+    background-size: 10px 10px;
+  }
+  .checkered-bg {
+    background-image: linear-gradient(
+        to left,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      );
+    background-size: 20px 20px;
+  }
 }
 
 @layer components {
   .sidebar-btn {
-    @apply cursor-pointer flex justify-center items-center gap-2 text-xl rounded-3xl hover:bg-accent-100 p-2 pl-6 pr-6 ml-4 mr-4;
+    @apply cursor-pointer flex justify-center items-center gap-2 text-xl rounded-3xl hover:bg-accent-100 p-2 px-6 mx-4;
     transition: 200ms ease-in;
+  }
+  .sidebar-btn.active {
+    background-color: var(--color-accent-100);
   }
 
   .page {
-    @apply w-full bg-background-50 p-4;
-    background-size: 30px 30px;
-    background-image: radial-gradient(
-      circle,
-      var(--color-secondary-500) 1px,
-      transparent 1px
-    );
+    @apply flex flex-1 flex-col bg-background-50 p-4;
   }
 }
 
@@ -31,11 +54,86 @@
   html,
   body {
     @apply min-h-full h-full;
-    color: var(--color-text-900);
+    color: var(--color-text-800);
+    overflow: overlay;
   }
-
   #root {
-    @apply min-h-full flex;
+    @apply min-h-full w-full flex;
+  }
+  i {
+    font-size: 14px;
+  }
+  .tiptap-container > div {
+    @apply w-full h-[450px] overflow-hidden;
+  }
+  .tiptap {
+    @apply break-all outline-0 w-[90%] h-full overflow-x-hidden overflow-y-auto;
+    line-height: 2rem;
+    scrollbar-width: 0;
+    scrollbar-gutter: none;
+
+    h1 {
+      @apply text-xl font-bold;
+      letter-spacing: 0.1em;
+    }
+    h2 {
+      @apply text-lg font-bold;
+      letter-spacing: 0.1em;
+    }
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    ol {
+      list-style-type: decimal;
+      padding-left: 20px;
+    }
+    ul[data-type="taskList"] {
+      list-style: none;
+      margin-left: 0;
+      padding: 0;
+
+      li {
+        align-items: center;
+        display: flex;
+
+        > label {
+          flex: 0 0 auto;
+          margin-right: 0.5rem;
+          user-select: none;
+          transform: translateY(2px);
+        }
+
+        > div {
+          flex: 1 1 auto;
+          line-height: 1em;
+        }
+      }
+
+      input[type="checkbox"] {
+        cursor: pointer;
+      }
+
+      ul[data-type="taskList"] {
+        margin: 0;
+      }
+    }
+    blockquote {
+      display: block;
+      unicode-bidi: isolate;
+      margin: 1.5rem 0;
+      padding-left: 1rem;
+      border-left: 3px solid var(--color-text-700);
+    }
+    a {
+      text-decoration: underline;
+      cursor: pointer;
+      color: var(--color-text-500);
+
+      @variant hover {
+        color: var(--color-text-600);
+      }
+    }
   }
 }
 
@@ -182,4 +280,6 @@
   --color-accent-dark-800: oklch(80.4% 0.093 2.16);
   --color-accent-dark-900: oklch(90.08% 0.043 359.89);
   --color-accent-dark-950: oklch(95.06% 0.022 359.65);
+
+  /* Animations */
 }
