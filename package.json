@@ -7,17 +7,42 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "font": "svgtofont --sources ./src/assets/icon --output ./public/ --fontName d-icons"
+  },
+  "svgtofont": {
+    "outSVGReact": false,
+    "outSVGVue": false,
+    "outSVGPath": false,
+    "outSVGReactNative": false,
+    "fontName": "d-icons",
+    "classNamePrefix": "di"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
+    "@tiptap/extension-blockquote": "^3.13.0",
+    "@tiptap/extension-bold": "^3.13.0",
+    "@tiptap/extension-document": "^3.13.0",
+    "@tiptap/extension-emoji": "^3.13.0",
+    "@tiptap/extension-heading": "^3.13.0",
+    "@tiptap/extension-italic": "^3.13.0",
+    "@tiptap/extension-link": "^3.13.0",
+    "@tiptap/extension-list": "^3.13.0",
+    "@tiptap/extension-paragraph": "^3.13.0",
+    "@tiptap/extension-strike": "^3.13.0",
+    "@tiptap/extension-text": "^3.13.0",
+    "@tiptap/extension-underline": "^3.13.0",
+    "@tiptap/extension-youtube": "^3.13.0",
+    "@tiptap/extensions": "^3.13.0",
+    "@tiptap/pm": "^3.13.0",
+    "@tiptap/react": "^3.13.0",
+    "firebase": "^12.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.10.1",
-    "tailwindcss": "^4.1.18"
+    "react-router-dom": "^7.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
@@ -26,6 +51,8 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "svgtofont": "^6.5.0",
+    "tailwindcss": "^4.1.18",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "npm:rolldown-vite@7.2.5"
