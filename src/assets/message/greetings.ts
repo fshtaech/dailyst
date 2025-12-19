@@ -5,6 +5,7 @@ export const greetings = {
     "What's our vibe this morning?",
     "Ready?",
     "Ready to eat your breakfast?",
+    "Eaten your breakfast?",
     "How are we feeling?",
   ],
   afternoon: [
