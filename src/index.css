@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pixelify Sans";
-  src: local("Pixelify Sans"), url("/Pixelify Sans.ttf") format("truetype");
+  src: local("Pixelify Sans"), url("/font/Pixelify Sans.ttf") format("truetype");
 }
 
 @import "tailwindcss";
