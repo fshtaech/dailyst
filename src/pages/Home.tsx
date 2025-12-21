@@ -129,7 +129,7 @@ export const Home = (): JSX.Element => {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-[.5px]"
           style={{
-            backgroundImage: `url(/src/assets/wallpaper/wall-1.png)`,
+            backgroundImage: `url(/images/wall-1.png)`,
           }}
         ></div>
         <div className="absolute inset-0 bg-black/50"></div>
