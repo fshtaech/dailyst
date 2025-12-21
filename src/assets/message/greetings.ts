@@ -36,7 +36,7 @@ export const greetings = {
     "Your Safe Space To Vent",
     "Spill The Beans!",
     "Grab Some Popcorn Because It's About To Be Comical",
-    "Are You Not Depressed Yet?",
+    "Are You Still Okay?",
     "Did You Manage To Uppercut Your Problems?",
     "Your Personal Paper Wall",
   ],
