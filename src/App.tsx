@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import type { UserType } from "./firebase/types/User";
 import { auth } from "./firebase/firebase.config";
-import { authService } from "./firebase/services/auth.service";
 import { userService } from "./firebase/services/user.service";
 import { AuthContext } from "./firebase/contexts/AuthContext";
 
@@ -21,13 +20,13 @@ export const App = () => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setAuthUser(authService.getAuthUser());
+        setAuthUser(user);
         setCurrentUser(await userService.getUserById(user.uid));
       }
     });
 
     return () => unsub();
-  }, []);
+  }, [authUser]);
 
   return (
     <BrowserRouter>

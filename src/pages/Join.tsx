@@ -115,7 +115,7 @@ export const Join = () => {
               type="email"
               label="Email"
               action={{
-                onBlur: (e) => onBlurEmail(e),
+                onBlur: async (e) => await onBlurEmail(e),
                 onFocus: () => setEmailInteracted(true),
               }}
               validity={{
@@ -129,7 +129,7 @@ export const Join = () => {
               type="text"
               label="Username"
               action={{
-                onBlur: (e) => onBlurUsername(e),
+                onBlur: async (e) => await onBlurUsername(e),
                 onFocus: () => setUsernameInteracted(true),
               }}
               validity={{
@@ -176,7 +176,7 @@ export const Join = () => {
               <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
                 <img
                   className="w-6 h-6"
-                  src="/src/assets/icon/google.svg"
+                  src="/icons/google.svg"
                   alt="Google Icon"
                 />
                 Google
@@ -185,7 +185,7 @@ export const Join = () => {
                 {" "}
                 <img
                   className="w-6 h-6"
-                  src="/src/assets/icon/guest.svg"
+                  src="/icons/guest.svg"
                   alt="Guest Icon"
                 />
                 Guest

@@ -138,7 +138,7 @@ export const Home = (): JSX.Element => {
             <h1 className="text-3xl text-text-50">
               Good{" " + greeting}
               {currentUser ? ", " : "!"}
-              {currentUser && <span>{currentUser.username}</span>}
+              {currentUser && <span>{currentUser.username}!</span>}
             </h1>
             {greetingMessage}
           </span>

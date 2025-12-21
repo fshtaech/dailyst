@@ -138,7 +138,7 @@ export const Login = () => {
               <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
                 <img
                   className="w-6 h-6"
-                  src="/src/assets/icon/google.svg"
+                  src="/icons/google.svg"
                   alt="Google Icon"
                 />
                 Google
@@ -147,7 +147,7 @@ export const Login = () => {
                 {" "}
                 <img
                   className="w-6 h-6"
-                  src="/src/assets/icon/guest.svg"
+                  src="/icons/guest.svg"
                   alt="Guest Icon"
                 />
                 Guest
