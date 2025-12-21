@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "font": "svgtofont --sources ./src/assets/icon --output ./public/"
+    "font": "svgtofont --sources ./src/assets/figma --output ./public/"
   },
   "svgtofont": {
     "outSVGReact": false,

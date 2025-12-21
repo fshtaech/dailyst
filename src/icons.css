@@ -1,12 +1,12 @@
 @font-face {
   font-family: "di-icons";
-  src: url("di-icons.eot?t=1766304096104"); /* IE9*/
-  src: url("di-icons.eot?t=1766304096104#iefix") format("embedded-opentype")
+  src: url("di-icons.eot?t=1766305578264"); /* IE9*/
+  src: url("di-icons.eot?t=1766305578264#iefix") format("embedded-opentype")
       /* IE6-IE8 */,
-    url("di-icons.woff2?t=1766304096104") format("woff2"),
-    url("di-icons.woff?t=1766304096104") format("woff"),
-    url("di-icons.ttf?t=1766304096104") format("truetype"),
-    url("di-icons.svg?t=1766304096104") format("svg");
+    url("di-icons.woff2?t=1766305578264") format("woff2"),
+    url("di-icons.woff?t=1766305578264") format("woff"),
+    url("di-icons.ttf?t=1766305578264") format("truetype"),
+    url("di-icons.svg?t=1766305578264") format("svg");
 }
 
 [class^="di-"],
@@ -19,88 +19,4 @@
 
 .di-arrow-left::before {
   content: "\ea01";
-}
-.di-arrow-right::before {
-  content: "\ea02";
-}
-.di-bold::before {
-  content: "\ea03";
-}
-.di-bullet-list::before {
-  content: "\ea04";
-}
-.di-check-filled::before {
-  content: "\ea05";
-}
-.di-eye-close::before {
-  content: "\ea06";
-}
-.di-eye::before {
-  content: "\ea07";
-}
-.di-facebook::before {
-  content: "\ea08";
-}
-.di-google::before {
-  content: "\ea09";
-}
-.di-guest::before {
-  content: "\ea0a";
-}
-.di-heading-1::before {
-  content: "\ea0b";
-}
-.di-heading-2::before {
-  content: "\ea0c";
-}
-.di-heart::before {
-  content: "\ea0d";
-}
-.di-house::before {
-  content: "\ea0e";
-}
-.di-info::before {
-  content: "\ea0f";
-}
-.di-italic::before {
-  content: "\ea10";
-}
-.di-join::before {
-  content: "\ea11";
-}
-.di-leave::before {
-  content: "\ea12";
-}
-.di-link::before {
-  content: "\ea13";
-}
-.di-number-list::before {
-  content: "\ea14";
-}
-.di-pin-paper::before {
-  content: "\ea15";
-}
-.di-pin::before {
-  content: "\ea16";
-}
-.di-plume-ink::before {
-  content: "\ea17";
-}
-.di-quote::before {
-  content: "\ea18";
-}
-.di-star-filled::before {
-  content: "\ea19";
-}
-.di-star::before {
-  content: "\ea1a";
-}
-.di-trophy::before {
-  content: "\ea1b";
-}
-.di-uncheck::before {
-  content: "\ea1c";
-}
-.di-underline::before {
-  content: "\ea1d";
 }
