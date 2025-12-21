@@ -1,7 +1,7 @@
 @font-face {
   font-family: "di-icons";
-  src: url("./font/di-icons.woff2?t=1766306134620") format("woff2"),
-    url("./font/di-icons.woff?t=1766306134620") format("woff");
+  src: url("/font/di-icons.woff2?t=1766306134620") format("woff2"),
+    url("/font/di-icons.woff?t=1766306134620") format("woff");
 }
 
 [class^="di-"],
