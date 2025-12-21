@@ -8,14 +8,14 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "font": "svgtofont --sources ./src/assets/icon --output ./public/ --fontName d-icons"
+    "font": "svgtofont --sources ./src/assets/icon --output ./public/"
   },
   "svgtofont": {
     "outSVGReact": false,
     "outSVGVue": false,
     "outSVGPath": false,
     "outSVGReactNative": false,
-    "fontName": "d-icons",
+    "fontName": "di-icons",
     "classNamePrefix": "di"
   },
   "dependencies": {

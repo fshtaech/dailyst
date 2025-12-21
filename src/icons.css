@@ -1,11 +1,17 @@
 @font-face {
-  font-family: "d-icons";
-  src: url("d-icons.woff2") format("woff2"), url("d-icons.woff") format("woff");
+  font-family: "di-icons";
+  src: url("di-icons.eot?t=1766304096104"); /* IE9*/
+  src: url("di-icons.eot?t=1766304096104#iefix") format("embedded-opentype")
+      /* IE6-IE8 */,
+    url("di-icons.woff2?t=1766304096104") format("woff2"),
+    url("di-icons.woff?t=1766304096104") format("woff"),
+    url("di-icons.ttf?t=1766304096104") format("truetype"),
+    url("di-icons.svg?t=1766304096104") format("svg");
 }
 
 [class^="di-"],
 [class*=" di-"] {
-  font-family: "d-icons" !important;
+  font-family: "di-icons" !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
