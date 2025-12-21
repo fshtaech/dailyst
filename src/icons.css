@@ -1,11 +1,7 @@
 @font-face {
   font-family: "d-icons";
-  src: url("d-icons.eot?t=1766027957354"); /* IE9*/
-  src: url("d-icons.eot?t=1766027957354#iefix") format("embedded-opentype")
-      /* IE6-IE8 */,
-    url("d-icons.woff2?t=1766027957354") format("woff2"),
-    url("d-icons.woff?t=1766027957354") format("woff"),
-    url("d-icons.ttf?t=1766027957354") format("truetype");
+  src: url("d-icons.woff2?t=1766027957354") format("woff2"),
+    url("d-icons.woff?t=1766027957354") format("woff");
 }
 
 [class^="di-"],
