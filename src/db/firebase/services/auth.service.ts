@@ -7,7 +7,7 @@ import { auth } from "../firebase.config";
 import { InvalidAuthError } from "../exceptions/InvalidAuthError";
 import { authType, type AuthType } from "../types/AuthType";
 import { equalTo, get, orderByChild, query } from "firebase/database";
-import { dbRef } from "../refs";
+import { dbRef } from "../firebase.refs";
 import { userService } from "./user.service";
 import { FirebaseError } from "firebase/app";
 

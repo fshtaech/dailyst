@@ -9,11 +9,3 @@ export const getFirstObject = <T>(obj: {
 
   return { key, value };
 };
-
-// export const getListObject = <T>(obj: {
-//   new (): T;
-// }): { key: string; value: T[] } => {
-//   const [key, value] = Object.entries(obj);
-
-//   return { key, value };
-// };

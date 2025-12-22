@@ -16,7 +16,7 @@ export const PasswordInput = ({
           {label}
         </label>
       )}
-      <div className="flex items-center border-2 bg-secondary-50 focus-within:border-accent-400">
+      <div className="flex items-center border-2 rounded-md bg-secondary-50 focus-within:border-accent-400">
         <input
           id={id}
           name={name}

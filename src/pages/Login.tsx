@@ -1,9 +1,11 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authService } from "../firebase/services/auth.service";
+import { authService } from "../db/firebase/services/auth.service";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
 import { useInputValidity } from "../lib/hooks/useInput";
+import type { FirebaseError } from "firebase/app";
+import { useModal } from "../lib/hooks/useModal";
 
 export const Login = () => {
   const [
@@ -19,6 +21,7 @@ export const Login = () => {
     setPasswordInteracted,
   ] = useInputValidity();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const { openModal } = useModal();
   const navigate = useNavigate();
 
   const onBlurIdentifier = (e: FormEvent<HTMLInputElement>) => {
@@ -70,8 +73,44 @@ export const Login = () => {
       .then(() => {
         navigate("/home");
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((error: FirebaseError) => {
+        let title: string = "Unable to Log in";
+        let content: string =
+          "We cannot log in to your account in the meantime. Please try again later.";
+
+        switch (error.code) {
+          case "auth/invalid-email":
+            title = "Invalid Email";
+            content =
+              "We couldn't log in to the account. The email is invalid!";
+            break;
+          case "auth/user-not-found":
+            title = "Invalid Account";
+            content =
+              "We couldn't log in to the account. The account does not exist!";
+            break;
+          case "auth/user-disabled":
+            title = "Account Disabled";
+            content =
+              "The account is disabled. Please contact support for further assistance.";
+            break;
+          case "auth/wrong-password":
+            title = "Invalid Password";
+            content =
+              "Unable to log in to your account. Your password is incorrect!";
+            break;
+          default:
+            break;
+        }
+
+        openModal({
+          title: title,
+          content: (
+            <>
+              <p className="text-center px-2 my-8 text-text-900">{content}</p>
+            </>
+          ),
+        });
       });
   };
 
@@ -119,13 +158,18 @@ export const Login = () => {
             />
             {identifierValid && passwordValid ? (
               <button
-                className="p-2 border-2 mt-4 cursor-pointer bg-primary-200 hover:bg-primary-300 duration-200"
+                className="p-2 border-2 rounded-md mt-4 cursor-pointer bg-primary-200 hover:bg-primary-300 duration-200"
                 type="submit"
+                title="Login"
               >
                 Login
               </button>
             ) : (
-              <button className="p-2 border-2 mt-4 bg-primary-200/80" disabled>
+              <button
+                className="p-2 border-2 rounded-md mt-4 bg-primary-100/50"
+                title="Fill out the form first!"
+                disabled
+              >
                 Login
               </button>
             )}
@@ -135,7 +179,10 @@ export const Login = () => {
             <p className="mb-4">or continue with</p>
 
             <div className="flex flex-col w-full gap-2">
-              <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
+              <button
+                className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
+                title="Login with Google"
+              >
                 <img
                   className="w-6 h-6"
                   src="/icons/google.svg"
@@ -143,7 +190,10 @@ export const Login = () => {
                 />
                 Google
               </button>
-              <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
+              <button
+                className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
+                title="Login as Guest"
+              >
                 {" "}
                 <img
                   className="w-6 h-6"

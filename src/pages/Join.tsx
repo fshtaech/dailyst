@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authService } from "../firebase/services/auth.service";
+import { authService } from "../db/firebase/services/auth.service";
 import { Input } from "../components/Input";
 import { useInputValidity } from "../lib/hooks/useInput";
 import { PasswordInput } from "../components/PasswordInput";
@@ -157,13 +157,18 @@ export const Join = () => {
 
             {emailValid && usernameValid && passwordValid ? (
               <button
-                className="p-2 border-2 mt-4 cursor-pointer bg-primary-200 hover:bg-primary-300 duration-200"
+                className="p-2 border-2 rounded-md mt-4 cursor-pointer bg-primary-200 hover:bg-primary-300 duration-200"
                 type="submit"
+                title="Create Account"
               >
                 Create
               </button>
             ) : (
-              <button className="p-2 border-2 mt-4 bg-primary-200/80" disabled>
+              <button
+                className="p-2 border-2 rounded-md mt-4 bg-primary-100/50"
+                title="Fill out the form first!"
+                disabled
+              >
                 Create
               </button>
             )}
@@ -173,7 +178,10 @@ export const Join = () => {
             <p className="mb-4">or join using</p>
 
             <div className="flex flex-col w-full gap-2">
-              <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
+              <button
+                className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
+                title="Joing with Google"
+              >
                 <img
                   className="w-6 h-6"
                   src="/icons/google.svg"
@@ -181,7 +189,10 @@ export const Join = () => {
                 />
                 Google
               </button>
-              <button className="flex justify-center items-center gap-2 p-2 border-2 cursor-pointer bg-background-50 hover:bg-background-100 duration-200">
+              <button
+                className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
+                title="Join as Guest"
+              >
                 {" "}
                 <img
                   className="w-6 h-6"
@@ -197,7 +208,7 @@ export const Join = () => {
         <Link to="/login" className="group text-center">
           <span>
             Already have an account?{" "}
-            <span className="text-accent-300 group-hover:text-accent-500">
+            <span className="text-accent-300 group-hover:text-accent-500 selection:text-accent-500">
               Login
             </span>
           </span>

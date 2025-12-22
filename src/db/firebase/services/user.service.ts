@@ -1,5 +1,5 @@
 import { type UserType } from "../types/User";
-import { dbRef } from "../refs";
+import { dbRef } from "../firebase.refs";
 import {
   DataSnapshot,
   equalTo,
@@ -10,7 +10,8 @@ import {
 } from "firebase/database";
 import { NoUserError } from "../exceptions/NoUserError";
 import { authService } from "./auth.service";
-import { getFirstObject } from "../../lib/utils/get";
+import { getFirstObject } from "../../../lib/utils/get";
+import { InvalidAuthError } from "../exceptions/InvalidAuthError";
 
 export const userService = {
   getUserById: async (id: string): Promise<UserType> => {
@@ -27,9 +28,13 @@ export const userService = {
       query(dbRef.users(), ...[orderByChild("email"), equalTo(email)])
     );
 
-    if (!snap) {
-      throw new NoUserError(`No user was found with email ${email}`);
+    if (!snap.val()) {
+      throw new InvalidAuthError(
+        "auth/user-not-found",
+        `No user was found with email ${email}`
+      );
     }
+
     return getFirstObject(snap.val()).value as UserType;
   },
 
@@ -38,8 +43,11 @@ export const userService = {
       query(dbRef.users(), ...[orderByChild("username"), equalTo(username)])
     );
 
-    if (!snap) {
-      throw new NoUserError(`No user was found with username ${username}`);
+    if (!snap.val()) {
+      throw new InvalidAuthError(
+        "auth/user-not-found",
+        `No user was found with username ${username}`
+      );
     }
 
     return getFirstObject(snap.val()).value as UserType;

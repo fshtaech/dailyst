@@ -8,19 +8,6 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer utilities {
-  .journal {
-    background-image: linear-gradient(
-        to right,
-        var(--color-secondary-100) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        var(--color-secondary-100) 1px,
-        transparent 1px
-      );
-    background-size: 10px 10px;
-  }
   .checkered-bg {
     background-image: linear-gradient(
         to left,
@@ -37,12 +24,12 @@
 }
 
 @layer components {
-  .sidebar-btn {
-    @apply cursor-pointer flex justify-center items-center gap-2 text-xl rounded-3xl hover:bg-accent-100 p-2 px-6 mx-4;
-    transition: 200ms ease-in;
-  }
   .sidebar-btn.active {
-    background-color: var(--color-accent-100);
+    @apply bg-primary-200! text-primary-600! font-semibold!;
+
+    i {
+      @apply font-normal!;
+    }
   }
 
   .page {
@@ -57,20 +44,33 @@
     color: var(--color-text-800);
     overflow: overlay;
   }
+  ::selection {
+    background-color: var(--color-background-300);
+    color: var(--color-text-900);
+  }
   #root {
     @apply min-h-full w-full flex;
   }
   i {
     font-size: 14px;
   }
-  .tiptap-container > div {
-    @apply w-full h-[450px] overflow-hidden;
+  div[name="journal-content"] {
+    @apply w-full h-full overflow-y-auto p-2 border-2 rounded-md mb-2;
+    background-image: linear-gradient(
+        to right,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-secondary-100) 1px,
+        transparent 1px
+      );
+    background-size: 10px 10px;
   }
   .tiptap {
-    @apply break-all outline-0 w-[90%] h-full overflow-x-hidden overflow-y-auto;
+    @apply outline-0 w-full h-[423px];
     line-height: 2rem;
-    scrollbar-width: 0;
-    scrollbar-gutter: none;
 
     h1 {
       @apply text-xl font-bold;

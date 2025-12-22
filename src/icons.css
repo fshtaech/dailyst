@@ -1,7 +1,7 @@
 @font-face {
   font-family: "di-icons";
-  src: url("/font/di-icons.woff2?t=1766306134620") format("woff2"),
-    url("/font/di-icons.woff?t=1766306134620") format("woff");
+  src: url("/font/di-icons.woff2?t=1766407081624") format("woff2"),
+    url("/font/di-icons.woff?t=1766407081624") format("woff");
 }
 
 [class^="di-"],
@@ -33,61 +33,61 @@
 .di-eye::before {
   content: "\ea07";
 }
-.di-facebook::before {
+.di-heading-1::before {
   content: "\ea08";
 }
-.di-google::before {
+.di-heading-2::before {
   content: "\ea09";
 }
-.di-guest::before {
+.di-heart::before {
   content: "\ea0a";
 }
-.di-heading-1::before {
+.di-house::before {
   content: "\ea0b";
 }
-.di-heading-2::before {
+.di-info::before {
   content: "\ea0c";
 }
-.di-heart::before {
+.di-italic::before {
   content: "\ea0d";
 }
-.di-house::before {
+.di-join::before {
   content: "\ea0e";
 }
-.di-info::before {
+.di-leave::before {
   content: "\ea0f";
 }
-.di-italic::before {
+.di-link::before {
   content: "\ea10";
 }
-.di-join::before {
+.di-number-list::before {
   content: "\ea11";
 }
-.di-leave::before {
+.di-pin-paper::before {
   content: "\ea12";
 }
-.di-link::before {
+.di-pin::before {
   content: "\ea13";
 }
-.di-number-list::before {
+.di-plume-ink::before {
   content: "\ea14";
 }
-.di-pin-paper::before {
+.di-quote::before {
   content: "\ea15";
 }
-.di-pin::before {
+.di-shuffle::before {
   content: "\ea16";
 }
-.di-plume-ink::before {
+.di-star-filled::before {
   content: "\ea17";
 }
-.di-quote::before {
+.di-star::before {
   content: "\ea18";
 }
-.di-star-filled::before {
+.di-straight-arrow-left::before {
   content: "\ea19";
 }
-.di-star::before {
+.di-straight-arrow-right::before {
   content: "\ea1a";
 }
 .di-trophy::before {
@@ -98,4 +98,7 @@
 }
 .di-underline::before {
   content: "\ea1d";
+}
+.di-x::before {
+  content: "\ea1e";
 }

@@ -7,8 +7,8 @@ import {
   set,
 } from "firebase/database";
 import type { JournalType } from "../types/Journal";
-import { dbRef } from "../refs";
-import { getFirstObject } from "../../lib/utils/get";
+import { dbRef } from "../firebase.refs";
+import { getFirstObject } from "../../../lib/utils/get";
 import { NoJournalError } from "../exceptions/NoJournalError";
 import { InvalidPushError } from "../exceptions/InvalidPushError";
 import { authService } from "./auth.service";
