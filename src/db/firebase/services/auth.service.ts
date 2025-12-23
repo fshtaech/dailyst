@@ -1,15 +1,15 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  type AuthError,
   type User,
 } from "firebase/auth";
-import { auth } from "../firebase.config";
-import { InvalidAuthError } from "../exceptions/InvalidAuthError";
+import { auth, gAuth } from "../firebase.config";
 import { authType, type AuthType } from "../types/AuthType";
 import { equalTo, get, orderByChild, query } from "firebase/database";
 import { dbRef } from "../firebase.refs";
 import { userService } from "./user.service";
-import { FirebaseError } from "firebase/app";
 
 export const authService = {
   getAuthUser: (): User | null => {
@@ -75,27 +75,7 @@ export const authService = {
     return signInWithEmailAndPassword(auth, email, password)
       .then(() => {})
       .catch((error) => {
-        switch (error.code) {
-          case "auth/invalid-email":
-            throw new InvalidAuthError(
-              error.code,
-              `Email is invalid: ${email}`
-            );
-          case "auth/user-not-found":
-            throw new InvalidAuthError(
-              error.code,
-              `User not found with Email: ${email}`
-            );
-          case "auth/user-disabled":
-            throw new InvalidAuthError(
-              error.code,
-              `User is disabled with Email: ${email}`
-            );
-          case "auth/wrong-password":
-            throw new InvalidAuthError(error.code, `Password is invalid`);
-          default:
-            throw new FirebaseError(error.code, error.message);
-        }
+        throw error;
       });
   },
 
@@ -111,6 +91,13 @@ export const authService = {
         email: email,
         createdAt: new Date().toISOString(),
       });
+    });
+  },
+
+  signUpViaGoogle: async (): Promise<void> => {
+    signInWithPopup(auth, gAuth).catch((error: AuthError) => {
+      console.log(error);
+      throw error;
     });
   },
 

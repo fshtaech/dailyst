@@ -21,7 +21,7 @@ export const Modal = ({ title, index, onClose, children }: ModalProps) => {
   return (
     <div
       className={`z-${
-        2 + index
+        4 + index
       } fixed inset-0 flex items-center justify-center w-full h-full p-5 bg-background-800/30 backdrop-blur-xs transition ease-linear duration-300 opacity-${
         open ? "100" : "0"
       }`}

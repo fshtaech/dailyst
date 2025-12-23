@@ -4,6 +4,7 @@ import { authService } from "../db/firebase/services/auth.service";
 import { Input } from "../components/Input";
 import { useInputValidity } from "../lib/hooks/useInput";
 import { PasswordInput } from "../components/PasswordInput";
+import { useModal } from "../lib/hooks/useModal";
 
 export const Join = () => {
   const [
@@ -25,6 +26,7 @@ export const Join = () => {
     setPasswordInteracted,
   ] = useInputValidity();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const { openModal } = useModal();
   const navigate = useNavigate();
 
   const onBlurEmail = async (e: FormEvent<HTMLInputElement>) => {
@@ -56,6 +58,8 @@ export const Join = () => {
       ? "Username is taken"
       : "";
 
+    console.log(valid);
+
     setUsernameValidMessage(valid);
   };
 
@@ -77,6 +81,17 @@ export const Join = () => {
     setPasswordValidMessage(valid);
   };
 
+  const welcomeModal = () => {
+    openModal({
+      title: "Welcome to Dailyst!",
+      content: (
+        <p className="text-center px-2 my-8 text-text-900">
+          Thanks for signing up! You can now use Dailyst and its features!
+        </p>
+      ),
+    });
+  };
+
   const signUpViaEmailAndPassword = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -90,16 +105,24 @@ export const Join = () => {
       )
       .then(() => {
         navigate("/home");
+        welcomeModal();
       })
       .catch(() => {
         throw new Error("Unable to create user");
       });
   };
 
+  const signUpViaGoogle = async () => {
+    authService.signUpViaGoogle().then(() => {
+      navigate("/home");
+      welcomeModal();
+    });
+  };
+
   return (
     <div className="page p-0 flex-row">
-      <div className="flex-[43%]"></div>
-      <div className="flex flex-[100%] flex-col justify-around p-5 px-50 checkered-bg">
+      {window.innerWidth >= 368 && <div className="flex-[43%]"></div>}
+      <div className="flex flex-[100%] flex-col justify-around p-5 md:px-50 checkered-bg">
         <h1 className="text-3xl font-bold w-full text-center">
           Ready Join Dailyst?
         </h1>
@@ -181,6 +204,7 @@ export const Join = () => {
               <button
                 className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
                 title="Joing with Google"
+                onClick={async () => signUpViaGoogle()}
               >
                 <img
                   className="w-6 h-6"
@@ -214,7 +238,7 @@ export const Join = () => {
           </span>
         </Link>
       </div>
-      <div className="flex-[43%]"></div>
+      {window.innerWidth >= 368 && <div className="flex-[43%]"></div>}
     </div>
   );
 };

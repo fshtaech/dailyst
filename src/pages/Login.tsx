@@ -115,9 +115,9 @@ export const Login = () => {
   };
 
   return (
-    <div className="page p-0 flex-row">
-      <div className="flex-[43%]"></div>
-      <div className="flex flex-[100%] flex-col justify-around p-10 px-50 checkered-bg">
+    <div className="page p-0 justify-center flex-row">
+      {window.innerWidth >= 368 && <div className="flex-[43%]"></div>}
+      <div className="flex flex-[100%] flex-col justify-around p-10 md:px-50 checkered-bg">
         <h1 className="text-3xl font-bold w-full text-center">Welcome Back!</h1>
 
         <div className="flex flex-col w-full">
@@ -182,6 +182,7 @@ export const Login = () => {
               <button
                 className="flex justify-center items-center gap-2 p-2 border-2 rounded-md cursor-pointer bg-background-50 hover:bg-background-100 duration-200"
                 title="Login with Google"
+                onClick={async () => authService.signUpViaGoogle()}
               >
                 <img
                   className="w-6 h-6"
@@ -215,7 +216,7 @@ export const Login = () => {
           </span>
         </Link>
       </div>
-      <div className="flex-[43%]"></div>
+      {window.innerWidth >= 368 && <div className="flex-[43%]"></div>}
     </div>
   );
 };

@@ -31,6 +31,7 @@ export const Home = (): JSX.Element => {
     return greetings ? getRandomArrayItem(greetings.journal) : "";
   });
   const [infoActive, setInfoActive] = useState<boolean>(false);
+  const [bookmarkActive, setBookmarkActive] = useState<boolean>(false);
   const [editorContent, setEditorContent] = useState<string>("");
   const { openModal } = useModal();
 
@@ -195,10 +196,15 @@ export const Home = (): JSX.Element => {
 
             <button
               type="submit"
-              className="flex items-center px-1 cursor-pointer"
+              className="flex items-center px-1 cursor-pointer rounded-sm hover:bg-secondary-200 duration-200"
               title="Save Journal"
+              onClick={() => setBookmarkActive(true)}
             >
-              <i className="di di-star-filled hover:text-accent-500 text-xl text-accent-300 duration-200"></i>
+              <i
+                className={`di di-star${
+                  bookmarkActive ? "-filled text-accent-500" : ""
+                } text-xl text-accent-400  transition-all duration-200`}
+              ></i>
             </button>
           </form>
           <JournalEditor setAction={setEditorContent} />

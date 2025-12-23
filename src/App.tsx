@@ -35,7 +35,6 @@ export const App = () => {
         <AuthContext.Provider value={{ authUser, currentUser }}>
           <Sidebar />
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             /* Logged out-exclusive routes */
             <Route

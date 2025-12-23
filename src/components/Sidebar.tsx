@@ -195,7 +195,7 @@ export const Sidebar = () => {
         <>
           <button
             onClick={() => openBurgerMenu()}
-            className="fixed z-9 top-2 right-2 flex items-center justify-center p-2 px-3 cursor-pointer bg-background-100 text-text-800 border-2 hover:bg-background-200 transition-all"
+            className="fixed z-3 top-2 right-2 flex items-center justify-center p-2 px-3 cursor-pointer bg-background-100 text-text-800 border-2 hover:bg-background-200 transition-all"
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <span
@@ -231,9 +231,9 @@ export const Sidebar = () => {
           !mobile
             ? "translate-x-0 border-r-2"
             : open
-            ? "fixed top-0 right-0 translate-x-0 pt-10 min-w-30 w-30 h-full"
+            ? "fixed top-0 right-0 translate-x-0 pt-10 min-w-30 w-30 h-full z-10"
             : "fixed top-0 right-0 translate-x-500"
-        } flex flex-col w-20 sm:max-w-25 lg:w-52 lg:max-w-80 bg-primary-50 border-l-2 z-10 transition-all duration-300 ease-in-out`}
+        } flex flex-col w-20 sm:max-w-25 lg:w-52 lg:max-w-80 bg-primary-50 border-l-2 transition-all duration-300 ease-in-out`}
       >
         {!collapsed && !mobile && (
           <img
