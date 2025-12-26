@@ -2,7 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../db/firebase/services/auth.service";
 import { Input } from "../components/Input";
-import { useInputValidity } from "../lib/hooks/useInput";
+import { useInputValidity } from "../lib/hooks/useInputValidity";
 import { PasswordInput } from "../components/PasswordInput";
 import { useModal } from "../lib/hooks/useModal";
 
@@ -38,6 +38,8 @@ export const Join = () => {
   const onBlurEmail = async (e: FormEvent<HTMLInputElement>) => {
     const input: string = e.currentTarget.value;
 
+    setEmailVerifying(true);
+
     if (input.length === 0) {
       setEmailValidMessage("Email is required");
       return setEmailVerifying(false);
@@ -66,6 +68,8 @@ export const Join = () => {
 
   const onBlurUsername = async (e: FormEvent<HTMLInputElement>) => {
     const input: string = e.currentTarget.value;
+
+    setUsernameVerifying(true);
 
     if (input.length === 0) {
       setUsernameValidMessage("Username is required");
@@ -104,6 +108,8 @@ export const Join = () => {
 
   const onBlurPassword = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value;
+
+    setPasswordVerifying(true);
 
     if (input.length === 0) {
       setPasswordValidMessage("Password is required");

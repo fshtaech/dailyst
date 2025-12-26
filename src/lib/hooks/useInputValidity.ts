@@ -11,7 +11,7 @@ export const useInputValidity = (): [
   useDebugValue("Input Validity");
   const [inputValid, setInputValid] = useState<string>("");
   const [inputInteracted, setInputInteracted] = useState<boolean>(false);
-  const [verifying, setVerifying] = useState<boolean>(true);
+  const [verifying, setVerifying] = useState<boolean>(false);
 
   return [
     inputValid.length === 0 && inputInteracted,

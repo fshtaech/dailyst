@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../db/firebase/services/auth.service";
 import { Input } from "../components/Input";
 import { PasswordInput } from "../components/PasswordInput";
-import { useInputValidity } from "../lib/hooks/useInput";
+import { useInputValidity } from "../lib/hooks/useInputValidity";
 import type { FirebaseError } from "firebase/app";
 import { useModal } from "../lib/hooks/useModal";
 
@@ -30,6 +30,8 @@ export const Login = () => {
 
   const onBlurIdentifier = (e: FormEvent<HTMLInputElement>) => {
     const input: string = e.currentTarget.value;
+
+    setIdentifierVerifying(true);
 
     if (input.length === 0) {
       setIdentifierValidMessage("Email or username is required");
@@ -66,6 +68,8 @@ export const Login = () => {
 
   const onBlurPassword = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value;
+
+    setPasswordVerifying(true);
 
     if (input.length === 0) {
       setPasswordValidMessage("Password is required");
