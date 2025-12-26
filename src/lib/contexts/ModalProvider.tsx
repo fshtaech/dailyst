@@ -5,17 +5,19 @@ import { Modal } from "../../components/Modal";
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [modals, setModals] = useState<
-    { title: string; content: React.ReactNode }[]
+    { title: string; content: React.ReactNode; closeEffect?: () => void }[]
   >([]);
 
   const openModal = ({
     title,
     content,
+    closeEffect,
   }: {
     title: string;
     content: React.ReactNode;
+    closeEffect?: () => void;
   }) => {
-    setModals((prev) => [...prev, { title, content }]);
+    setModals((prev) => [...prev, { title, content, closeEffect }]);
   };
 
   const closeModal = () => {
@@ -37,7 +39,10 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
             key={`modal-${index}`}
             title={modal.title}
             index={index}
-            onClose={closeModal}
+            onClose={() => {
+              if (modal.closeEffect) modal.closeEffect();
+              closeModal();
+            }}
           >
             {modal.content}
           </Modal>,

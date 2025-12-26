@@ -24,7 +24,7 @@ export const journalService = {
     return getFirstObject(snap.val()).value as JournalType;
   },
 
-  getJournals: async (userId: string): Promise<void> => {
+  getJournals: async (userId: string): Promise<JournalType[]> => {
     const snap = await get(
       query(dbRef.journals(), ...[orderByChild("user"), equalTo(userId)])
     );
@@ -35,7 +35,11 @@ export const journalService = {
       );
     }
 
-    console.log(snap.val());
+    const journals: JournalType[] = Object.values(snap.val()).map(
+      (obj) => obj as JournalType
+    );
+
+    return journals;
   },
 
   createUserJournal: async (
@@ -43,6 +47,7 @@ export const journalService = {
   ): Promise<void> => {
     const snap = await push(dbRef.journals());
     const insertJournal: JournalType = {
+      id: snap.key!,
       user: authService.getAuthUser()?.uid,
       title: journal.title,
       content: journal.content,

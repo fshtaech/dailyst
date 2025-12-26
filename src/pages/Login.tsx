@@ -129,6 +129,7 @@ export const Login = () => {
               id="login-identifier"
               name="identifier"
               type="text"
+              autocomplete="email"
               label="Email or username"
               action={{
                 onBlur: (e) => onBlurIdentifier(e),
@@ -166,9 +167,16 @@ export const Login = () => {
               </button>
             ) : (
               <button
-                className="p-2 border-2 rounded-md mt-4 bg-primary-100/50"
+                className="p-2 border-2 rounded-md mt-4 bg-primary-50"
                 title="Fill out the form first!"
-                disabled
+                type="button"
+                onClick={() => {
+                  openModal({
+                    title: "Hold Up!",
+                    content:
+                      "Fill out the form first before clicking that button!",
+                  });
+                }}
               >
                 Login
               </button>

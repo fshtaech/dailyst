@@ -4,9 +4,11 @@ interface ModalContextType {
   openModal: ({
     title,
     content,
+    closeEffect,
   }: {
     title: string;
     content: React.ReactNode;
+    closeEffect?: () => void;
   }) => void;
   closeModal: () => void;
   closeAllModals: () => void;

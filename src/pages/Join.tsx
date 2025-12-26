@@ -97,12 +97,12 @@ export const Join = () => {
 
     const formData = new FormData(e.currentTarget);
 
+    const email = formData.get("email") as string;
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+
     authService
-      .signUpViaEmailAndPassword(
-        formData.get("email") as string,
-        formData.get("username") as string,
-        formData.get("password") as string
-      )
+      .signUpViaEmailAndPassword(email, username, password)
       .then(() => {
         navigate("/home");
         welcomeModal();
@@ -136,6 +136,7 @@ export const Join = () => {
               id="signup-email"
               name="email"
               type="email"
+              autocomplete="email"
               label="Email"
               action={{
                 onBlur: async (e) => await onBlurEmail(e),
@@ -150,6 +151,7 @@ export const Join = () => {
               id="signup-username"
               name="username"
               type="text"
+              autocomplete="name"
               label="Username"
               action={{
                 onBlur: async (e) => await onBlurUsername(e),
@@ -188,9 +190,16 @@ export const Join = () => {
               </button>
             ) : (
               <button
-                className="p-2 border-2 rounded-md mt-4 bg-primary-100/50"
+                className="p-2 border-2 rounded-md mt-4 bg-primary-50"
                 title="Fill out the form first!"
-                disabled
+                type="button"
+                onClick={() => {
+                  openModal({
+                    title: "Hold Up!",
+                    content:
+                      "Fill out the form first before clicking that button!",
+                  });
+                }}
               >
                 Create
               </button>

@@ -1,17 +1,11 @@
-import { useState, useEffect, type JSX, type FormEvent } from "react";
+import { useState, useEffect, type JSX } from "react";
 import { JournalEditor } from "../components/JournalEditor";
 import { getRandomArrayItem } from "../lib/utils/get";
 import { greetings } from "../assets/message/greetings";
 import { useAuthContext } from "../db/firebase/contexts/AuthContext";
-import { journalService } from "../db/firebase/services/journal.service";
-import type { JournalType } from "../db/firebase/types/Journal";
-import { InvalidPushError } from "../db/firebase/exceptions/InvalidPushError";
-import { useModal } from "../lib/hooks/useModal";
-import { OutsiderModal } from "../components/OutsiderModal";
 
 export const Home = (): JSX.Element => {
   const { currentUser } = useAuthContext();
-
   const [time, setTime] = useState<number>(new Date().getTime());
   const [greeting, setGreeting] = useState<string>(() => {
     const now = new Date();
@@ -27,13 +21,6 @@ export const Home = (): JSX.Element => {
         : "evening";
     return greetings ? getRandomArrayItem(greetings[initialGreeting]) : "";
   });
-  const [journalPlaceholder, setJournalPlaceholder] = useState<string>(() => {
-    return greetings ? getRandomArrayItem(greetings.journal) : "";
-  });
-  const [infoActive, setInfoActive] = useState<boolean>(false);
-  const [bookmarkActive, setBookmarkActive] = useState<boolean>(false);
-  const [editorContent, setEditorContent] = useState<string>("");
-  const { openModal } = useModal();
 
   // const parseDate = (time: number): string => {
   //   return new Date(time).toLocaleDateString("en-PH", {
@@ -55,32 +42,6 @@ export const Home = (): JSX.Element => {
           : greetings.evening
       )
     );
-  };
-
-  const bookmarkJournal = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!currentUser) {
-      return openModal(OutsiderModal());
-    }
-
-    const formData = new FormData(e.currentTarget);
-
-    const journal: JournalType = {
-      title: formData.get("journal-title") as string,
-      content: editorContent,
-    };
-
-    journalService
-      .createUserJournal(journal)
-      .then(() => {
-        setEditorContent("");
-      })
-      .catch((error) => {
-        throw new InvalidPushError(
-          "Unable to create new journal. Error " + error
-        );
-      });
   };
 
   useEffect(() => {
@@ -122,16 +83,8 @@ export const Home = (): JSX.Element => {
     return () => clearInterval(interval);
   }, [greeting, greetingMessage]);
 
-  useEffect(() => {
-    const interval: number = setInterval(() => {
-      setJournalPlaceholder(getRandomArrayItem(greetings.journal));
-    }, 900000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="page p-0">
+    <div className="page">
       <div className="header relative h-40 w-full p-4 flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-[.5px]"
@@ -151,66 +104,11 @@ export const Home = (): JSX.Element => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col w-full h-full min-h-0 gap-2 p-2 lg:grid lg:grid-cols-5">
-        <div className="flex flex-col flex-1 gap-2 lg:col-span-3">
-          <form
-            onSubmit={bookmarkJournal}
-            className="flex items-center text-lg py-2 px-6 border-2 rounded-md bg-secondary-100 focus-within:border-accent-400"
-          >
-            <div className="relative flex">
-              <button
-                className={`flex items-center px-1 cursor-pointer ${
-                  !infoActive && "mr-4"
-                }`}
-                type="button"
-                title="Curious? Click me"
-                onClick={() => setInfoActive(!infoActive)}
-              >
-                <i className="di di-info text-xl text-text-800"></i>
-              </button>
-              <span
-                onClick={() => setInfoActive(!infoActive)}
-                className={`absolute -left-100 text-accent-400 whitespace-nowrap transition-all duration-500 ${
-                  infoActive
-                    ? "ease-out translate-x-112 opacity-100"
-                    : "-translate-x-112 opacity-0 ease-in"
-                }`}
-              >
-                Add your journal title here!
-              </span>
-            </div>
-            <input
-              type="text"
-              name="journal-title"
-              id="journal-title"
-              placeholder={
-                !infoActive
-                  ? `https://${journalPlaceholder
-                      .toLowerCase()
-                      .replaceAll(" ", ".")}`
-                  : ""
-              }
-              className="flex-1 placeholder:text-zinc-500 focus:outline-0 text-ellipsis"
-              onFocus={() => setInfoActive(false)}
-            />
-
-            <button
-              type="submit"
-              className="flex items-center px-1 cursor-pointer rounded-sm hover:bg-secondary-200 duration-200"
-              title="Save Journal"
-              onClick={() => setBookmarkActive(true)}
-            >
-              <i
-                className={`di di-star${
-                  bookmarkActive ? "-filled text-accent-500" : ""
-                } text-xl text-accent-400  transition-all duration-200`}
-              ></i>
-            </button>
-          </form>
-          <JournalEditor setAction={setEditorContent} />
+      <div className="flex flex-col w-full h-full min-h-0 gap-2 p-2 lg:grid lg:grid-cols-8">
+        <div className="flex col-span-4">
+          <JournalEditor />
         </div>
-
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 col-span-2">
           <div className="flex justify-center items-center gap-2 border-2 rounded-md bg-blue-200">
             <i className="di di-pin-paper text-3xl text-blue-600"></i>
             <h2 className="text-xl font-medium">Upcoming Tasks</h2>
@@ -218,7 +116,7 @@ export const Home = (): JSX.Element => {
           <div className="flex flex-col gap-2"></div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 col-span-2">
           <div className="flex justify-center items-center gap-2 border-2 rounded-md bg-primary-200">
             <i className="di di-trophy text-3xl text-primary-600"></i>
             <h2 className="text-xl font-medium">Your Goals</h2>

@@ -64,19 +64,21 @@ export const authService = {
     identifier: string,
     password: string
   ): Promise<void> => {
-    let email: string = identifier;
+    let email: string = "";
 
-    const user = await userService.getUserByUsername(identifier);
-
-    if (user) {
-      email = user.email;
-    }
-
-    return signInWithEmailAndPassword(auth, email, password)
-      .then(() => {})
-      .catch((error) => {
+    try {
+      const user = await userService.getUserByUsername(identifier);
+      if (user) {
+        email = user.email;
+      }
+    } catch {
+      email = identifier;
+    } finally {
+      console.log(email);
+      signInWithEmailAndPassword(auth, email, password).catch((error) => {
         throw error;
       });
+    }
   },
 
   signUpViaEmailAndPassword: async (

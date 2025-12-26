@@ -18,10 +18,37 @@ export const Modal = ({ title, index, onClose, children }: ModalProps) => {
 
     return () => clearTimeout(timer);
   };
+
+  const handleNegativeClose = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target: HTMLElement = e.target as HTMLElement;
+
+    if (
+      target.tagName.toLowerCase() === "button" &&
+      target.getAttribute("datatype")?.toLowerCase() === "negative"
+    ) {
+      handleClose();
+    }
+    if (target.closest("button[datatype='negative']")) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    const escape = (e: globalThis.KeyboardEvent) => {
+      if (e.key.toLowerCase() == "escape") handleClose();
+    };
+
+    window.addEventListener("keydown", escape);
+
+    return () => {
+      window.removeEventListener("keydown", escape);
+    };
+  });
+
   return (
     <div
       className={`z-${
-        4 + index
+        3 + index
       } fixed inset-0 flex items-center justify-center w-full h-full p-5 bg-background-800/30 backdrop-blur-xs transition ease-linear duration-300 opacity-${
         open ? "100" : "0"
       }`}
@@ -45,7 +72,9 @@ export const Modal = ({ title, index, onClose, children }: ModalProps) => {
             </button>
           </div>
         )}
-        <div className="p-2">{children}</div>
+        <div className="p-2 text-center my-8" onClick={handleNegativeClose}>
+          {children}
+        </div>
       </div>
     </div>
   );

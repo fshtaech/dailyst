@@ -8,7 +8,7 @@ export const PasswordInput = ({
   action,
   validity,
   visible,
-}: PasswordInputProps) => {
+}: Omit<PasswordInputProps, "autocomplete">) => {
   return (
     <div className="group relative flex flex-col">
       {label && (
@@ -16,12 +16,13 @@ export const PasswordInput = ({
           {label}
         </label>
       )}
-      <div className="flex items-center border-2 rounded-md bg-secondary-50 focus-within:border-accent-400">
+      <div className="flex relative">
         <input
           id={id}
           name={name}
           type={visible ? "text" : type}
-          className="flex-1 p-2 rounded-none focus:outline-0"
+          autoComplete="new-password"
+          className="flex-1 p-2 rounded-md border-2 bg-secondary-50 focus:border-accent-300 focus:outline-0"
           onChange={action?.onChange}
           onBlur={action?.onBlur}
           onClick={action?.onClick}
@@ -29,7 +30,7 @@ export const PasswordInput = ({
         />
         <button
           type="button"
-          className="flex items-center cursor-pointer mr-2"
+          className="absolute top-[11px] right-0 flex items-center cursor-pointer mr-2"
           onClick={action?.onButtonClick}
         >
           <i className={`di di-eye${visible ? "-close" : ""}`}></i>

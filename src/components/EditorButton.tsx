@@ -14,7 +14,7 @@ export const EditorButton = ({
   return (
     <button
       type="button"
-      className={`flex justify-center items-center p-3 lg:p-4 max-h-fit px-3 md:px-4 lg:px-5 border border-t-0 rounded-b-md border-background-950 cursor-pointer duration-200 ${CSSclass} hover:py-5 lg:hover:py-6`}
+      className={`flex justify-center items-center p-2 border-2 rounded-sm cursor-pointer duration-200 ${CSSclass}`}
       title={title}
       onClick={onClick}
     >

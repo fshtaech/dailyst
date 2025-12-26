@@ -2,6 +2,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { authService } from "../db/firebase/services/auth.service";
 import { authType } from "../db/firebase/types/AuthType";
+import { useModal } from "../lib/hooks/useModal";
 
 const SidebarButton = ({
   to,
@@ -32,6 +33,7 @@ export const Sidebar = () => {
   const [mobile, setMobile] = useState<boolean>(false);
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(true);
+  const { openModal } = useModal();
   const location = useLocation();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -45,6 +47,38 @@ export const Sidebar = () => {
   const openBurgerMenu = () => {
     setOpen(!open);
     setCollapsed(false);
+  };
+
+  const quit = () => {
+    const removeLogin = () => {
+      authService.logoutUser();
+      navigate("/login");
+      navigate(0);
+    };
+
+    openModal({
+      title: "Leaving Dailyst",
+      content: (
+        <div className="flex flex-col items-center justify-center gap-8 my-4">
+          You are about to sign out of Dailyst. Are you sure you want to
+          continue?
+          <div className="flex justify-content items-center gap-5">
+            <button
+              className="flex-1 border-2 p-2 px-8 cursor-pointer border-text-900 bg-red-500 hover:bg-red-600 text-text-50 transition-colors duration-200"
+              onClick={removeLogin}
+            >
+              Quit
+            </button>
+            <button
+              className="flex-1 border-2 p-2 px-8 cursor-pointer bg-secondary-100 hover:bg-secondary-200 text-text-900 transition-colors duration-200"
+              datatype="negative"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
+    });
   };
 
   useEffect(() => {
@@ -229,7 +263,7 @@ export const Sidebar = () => {
         ref={ref}
         className={`${
           !mobile
-            ? "translate-x-0 border-r-2"
+            ? "translate-x-0 border-r-2 z-2"
             : open
             ? "fixed top-0 right-0 translate-x-0 pt-10 min-w-30 w-30 h-full z-10"
             : "fixed top-0 right-0 translate-x-500"
@@ -277,16 +311,15 @@ export const Sidebar = () => {
               </>
             ) : (
               <button
-                className="flex justify-center items-center gap-2 text-xl rounded-lg p-2 text-text-800 hover:bg-primary-100 transition duration-200 active:bg-primary-200 active:font-semibold active:text-primary-500"
-                onClick={() => {
-                  authService.logoutUser();
-                  navigate("/home");
-                  navigate(0);
-                }}
+                className="w-full flex justify-center items-center gap-2 text-lg rounded-lg p-2 text-text-800 hover:bg-primary-100 transition duration-200 active:bg-primary-200 active:font-semibold active:text-primary-500 cursor-pointer"
+                onClick={quit}
               >
-                <i className="di di-leave text-xl"></i>
-                {collapsed ||
-                  (mobile && <span className="md:inline">Quit</span>)}
+                <i
+                  className={`di di-leave ${
+                    !(!collapsed || mobile) ? "text-2xl" : "text-xl"
+                  }`}
+                ></i>
+                {(!collapsed || mobile) && <span className="inline">Quit</span>}
               </button>
             )}
           </ul>

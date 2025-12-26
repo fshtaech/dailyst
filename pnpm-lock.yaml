@@ -56,6 +56,9 @@ importers:
       '@tiptap/react':
         specifier: ^3.13.0
         version: 3.14.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@tiptap/static-renderer':
+        specifier: ^3.14.0
+        version: 3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       firebase:
         specifier: ^12.7.0
         version: 12.7.0
@@ -859,6 +862,14 @@ packages:
       '@tiptap/pm': ^3.14.0
       '@types/react': ^17.0.0 || ^18.0.0 || ^19.0.0
       '@types/react-dom': ^17.0.0 || ^18.0.0 || ^19.0.0
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@tiptap/static-renderer@3.14.0':
+    resolution: {integrity: sha512-H+UxjtMOUGA9E9TksYu17YT9wdCghXTtBPmievDPfiVanyDKNSsCtCAVB2UKh7TXWy8C8mGc2/F0aTFVwFkxBw==}
+    peerDependencies:
+      '@tiptap/core': ^3.14.0
+      '@tiptap/pm': ^3.14.0
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -3240,6 +3251,13 @@ snapshots:
       '@tiptap/extension-floating-menu': 3.14.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)
     transitivePeerDependencies:
       - '@floating-ui/dom'
+
+  '@tiptap/static-renderer@3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+    dependencies:
+      '@tiptap/core': 3.14.0(@tiptap/pm@3.14.0)
+      '@tiptap/pm': 3.14.0
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   '@tiptap/suggestion@3.14.0(@tiptap/core@3.14.0(@tiptap/pm@3.14.0))(@tiptap/pm@3.14.0)':
     dependencies:

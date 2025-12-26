@@ -9,3 +9,8 @@ export const getFirstObject = <T>(obj: {
 
   return { key, value };
 };
+
+export const getHTMLCharacterCount = (htmlString: string): number => {
+  return htmlString.replace(/^(\\<\\\/?[A-z0-9]+\\>)|(\\\\[A-z]{1})$/, "")
+    .length;
+};

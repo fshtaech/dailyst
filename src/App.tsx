@@ -25,7 +25,6 @@ export const App = () => {
         setCurrentUser(await userService.getUserById(user.uid));
       }
     });
-
     return () => unsub();
   }, [authUser]);
 
