@@ -36,13 +36,21 @@ export const Join = () => {
       return setEmailValidMessage("Email is required");
     }
 
-    const valid = !authService.validateEmail(input)
-      ? "Email is invalid"
-      : (await authService.emailExists(input))
-      ? "Email is already connected to an account"
-      : "";
+    if (!authService.validateEmail(input)) {
+      setEmailValidMessage("Email is invalid");
+    }
 
-    setEmailValidMessage(valid);
+    try {
+      const exists = await authService.emailExists(input);
+
+      if (exists) {
+        return setEmailValidMessage("Email is already connected to an account");
+      }
+      return setEmailValidMessage("");
+    } catch (error) {
+      console.error("Email validation failed: " + error);
+      return setEmailValidMessage("Unable to verify email");
+    }
   };
 
   const onBlurUsername = async (e: FormEvent<HTMLInputElement>) => {
@@ -52,15 +60,23 @@ export const Join = () => {
       return setUsernameValidMessage("Username is required");
     }
 
-    const valid = !authService.validateUsername(input)
-      ? "Username must be at least 6 characters without any special characters"
-      : (await authService.usernameExists(input))
-      ? "Username is taken"
-      : "";
+    if (!authService.validateUsername(input)) {
+      return setUsernameValidMessage(
+        "Username must be at least 6 characters without any special characters"
+      );
+    }
+    try {
+      const exists = await authService.usernameExists(input);
 
-    console.log(valid);
+      if (exists) {
+        return setUsernameValidMessage("Username is already taken");
+      }
 
-    setUsernameValidMessage(valid);
+      return setUsernameValidMessage("");
+    } catch (error) {
+      console.error("Unable to validate username: " + error);
+      return setUsernameValidMessage("Unable to verify username");
+    }
   };
 
   const onInputPassword = (e: FormEvent<HTMLInputElement>) => {

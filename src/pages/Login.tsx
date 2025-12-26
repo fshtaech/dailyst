@@ -31,15 +31,22 @@ export const Login = () => {
       return setIdentifierValidMessage("Email or username is required");
     }
 
-    const identifierValid = !authService.validateEmail(input)
-      ? input.includes("@") && !authService.validateUsername(input)
-        ? "Email is invalid"
-        : !input.includes("@") && !authService.validateUsername(input)
-        ? "Username is invalid"
-        : ""
-      : "";
+    if (
+      !authService.validateEmail(input) &&
+      input.includes("@") &&
+      !authService.validateUsername(input)
+    ) {
+      return setIdentifierValidMessage("Email is invalid");
+    }
+    if (
+      !authService.validateEmail(input) &&
+      !input.includes("@") &&
+      !authService.validateUsername(input)
+    ) {
+      return setIdentifierValidMessage("Username is invalid");
+    }
 
-    setIdentifierValidMessage(identifierValid);
+    return setIdentifierValidMessage("");
   };
 
   const onInputPassword = (e: FormEvent<HTMLInputElement>) => {
