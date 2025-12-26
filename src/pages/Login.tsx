@@ -10,15 +10,19 @@ import { useModal } from "../lib/hooks/useModal";
 export const Login = () => {
   const [
     identifierValid,
+    identifierVerifying,
     identifierValidMessage,
     setIdentifierValidMessage,
     setIdenfierInteracted,
+    setIdentifierVerifying,
   ] = useInputValidity();
   const [
     passwordValid,
+    passwordVerifying,
     passwordValidMessage,
     setPasswordValidMessage,
     setPasswordInteracted,
+    setPasswordVerifying,
   ] = useInputValidity();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const { openModal } = useModal();
@@ -28,7 +32,8 @@ export const Login = () => {
     const input: string = e.currentTarget.value;
 
     if (input.length === 0) {
-      return setIdentifierValidMessage("Email or username is required");
+      setIdentifierValidMessage("Email or username is required");
+      return setIdentifierVerifying(false);
     }
 
     if (
@@ -36,17 +41,20 @@ export const Login = () => {
       input.includes("@") &&
       !authService.validateUsername(input)
     ) {
-      return setIdentifierValidMessage("Email is invalid");
+      setIdentifierValidMessage("Email is invalid");
+      return setIdentifierVerifying(false);
     }
     if (
       !authService.validateEmail(input) &&
       !input.includes("@") &&
       !authService.validateUsername(input)
     ) {
-      return setIdentifierValidMessage("Username is invalid");
+      setIdentifierValidMessage("Username is invalid");
+      return setIdentifierVerifying(false);
     }
 
-    return setIdentifierValidMessage("");
+    setIdentifierValidMessage("");
+    return setIdentifierVerifying(false);
   };
 
   const onInputPassword = (e: FormEvent<HTMLInputElement>) => {
@@ -58,13 +66,19 @@ export const Login = () => {
 
   const onBlurPassword = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value;
-    const valid =
-      input.length !== 0
-        ? authService.validatePassword(input)
-          ? ""
-          : "Invalid password"
-        : "Password is required";
-    setPasswordValidMessage(valid);
+
+    if (input.length === 0) {
+      setPasswordValidMessage("Password is required");
+      return setPasswordVerifying(false);
+    }
+
+    if (!authService.validatePassword(input)) {
+      setPasswordValidMessage("Invalid password");
+      return setPasswordVerifying(false);
+    }
+
+    setPasswordValidMessage("");
+    return setPasswordVerifying(false);
   };
 
   const signInViaEmailAndPassword = async (e: FormEvent<HTMLFormElement>) => {
@@ -144,6 +158,7 @@ export const Login = () => {
               }}
               validity={{
                 isValid: identifierValid,
+                verifying: identifierVerifying,
                 errorMessage: identifierValidMessage,
               }}
             />
@@ -160,6 +175,7 @@ export const Login = () => {
               }}
               validity={{
                 isValid: passwordValid,
+                verifying: passwordVerifying,
                 errorMessage: passwordValidMessage,
               }}
               visible={passwordVisible}

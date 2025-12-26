@@ -9,21 +9,27 @@ import { useModal } from "../lib/hooks/useModal";
 export const Join = () => {
   const [
     emailValid,
+    emailVerifying,
     emailValidMessage,
     setEmailValidMessage,
     setEmailInteracted,
+    setEmailVerifying,
   ] = useInputValidity();
   const [
     usernameValid,
+    usernameVerifying,
     usernameValidMessage,
     setUsernameValidMessage,
     setUsernameInteracted,
+    setUsernameVerifying,
   ] = useInputValidity();
   const [
     passwordValid,
+    passwordVerifying,
     passwordValidMessage,
     setPasswordValidMessage,
     setPasswordInteracted,
+    setPasswordVerifying,
   ] = useInputValidity();
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const { openModal } = useModal();
@@ -33,23 +39,28 @@ export const Join = () => {
     const input: string = e.currentTarget.value;
 
     if (input.length === 0) {
-      return setEmailValidMessage("Email is required");
+      setEmailValidMessage("Email is required");
+      return setEmailVerifying(false);
     }
 
     if (!authService.validateEmail(input)) {
       setEmailValidMessage("Email is invalid");
+      return setEmailVerifying(false);
     }
 
     try {
       const exists = await authService.emailExists(input);
 
       if (exists) {
-        return setEmailValidMessage("Email is already connected to an account");
+        setEmailValidMessage("Email is already connected to an account");
+        return setEmailVerifying(false);
       }
-      return setEmailValidMessage("");
+      setEmailValidMessage("");
+      return setEmailVerifying(false);
     } catch (error) {
       console.error("Email validation failed: " + error);
-      return setEmailValidMessage("Unable to verify email");
+      setEmailValidMessage("Unable to verify email");
+      return setEmailVerifying(false);
     }
   };
 
@@ -57,25 +68,30 @@ export const Join = () => {
     const input: string = e.currentTarget.value;
 
     if (input.length === 0) {
-      return setUsernameValidMessage("Username is required");
+      setUsernameValidMessage("Username is required");
+      setUsernameVerifying(false);
     }
 
     if (!authService.validateUsername(input)) {
-      return setUsernameValidMessage(
+      setUsernameValidMessage(
         "Username must be at least 6 characters without any special characters"
       );
+      setUsernameVerifying(false);
     }
     try {
       const exists = await authService.usernameExists(input);
 
       if (exists) {
-        return setUsernameValidMessage("Username is already taken");
+        setUsernameValidMessage("Username is already taken");
+        setUsernameVerifying(false);
       }
 
-      return setUsernameValidMessage("");
+      setUsernameValidMessage("");
+      setUsernameVerifying(false);
     } catch (error) {
       console.error("Unable to validate username: " + error);
-      return setUsernameValidMessage("Unable to verify username");
+      setUsernameValidMessage("Unable to verify username");
+      setUsernameVerifying(false);
     }
   };
 
@@ -88,13 +104,21 @@ export const Join = () => {
 
   const onBlurPassword = (e: FormEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value;
-    const valid =
-      input.length !== 0
-        ? authService.validatePassword(input)
-          ? ""
-          : "Password must be at least 8 characters, with 1 digit and special character"
-        : "Password is required";
-    setPasswordValidMessage(valid);
+
+    if (input.length === 0) {
+      setPasswordValidMessage("Password is required");
+      return setPasswordVerifying(false);
+    }
+
+    if (!authService.validatePassword(input)) {
+      setPasswordValidMessage(
+        "Password must be at least 8 characters with 1 digit and 1 special character"
+      );
+      return setPasswordVerifying(false);
+    }
+
+    setPasswordValidMessage("");
+    return setPasswordVerifying(false);
   };
 
   const welcomeModal = () => {
@@ -160,6 +184,7 @@ export const Join = () => {
               }}
               validity={{
                 isValid: emailValid,
+                verifying: emailVerifying,
                 errorMessage: emailValidMessage,
               }}
             />
@@ -175,6 +200,7 @@ export const Join = () => {
               }}
               validity={{
                 isValid: usernameValid,
+                verifying: usernameVerifying,
                 errorMessage: usernameValidMessage,
               }}
             />
@@ -191,6 +217,7 @@ export const Join = () => {
               }}
               validity={{
                 isValid: passwordValid,
+                verifying: passwordVerifying,
                 errorMessage: passwordValidMessage,
               }}
               visible={passwordVisible}

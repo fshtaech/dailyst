@@ -29,7 +29,7 @@ export const Input = ({
       />
       {validity && !validity.isValid && (
         <span key={id + " errormsg"} className="text-sm text-red-600">
-          {validity.errorMessage}
+          {validity.verifying ? "Checking..." : validity.errorMessage}
         </span>
       )}
     </div>
