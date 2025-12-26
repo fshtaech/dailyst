@@ -73,29 +73,29 @@ export const Join = () => {
 
     if (input.length === 0) {
       setUsernameValidMessage("Username is required");
-      setUsernameVerifying(false);
+      return setUsernameVerifying(false);
     }
 
     if (!authService.validateUsername(input)) {
       setUsernameValidMessage(
         "Username must be at least 6 characters without any special characters"
       );
-      setUsernameVerifying(false);
+      return setUsernameVerifying(false);
     }
     try {
       const exists = await authService.usernameExists(input);
 
       if (exists) {
         setUsernameValidMessage("Username is already taken");
-        setUsernameVerifying(false);
+        return setUsernameVerifying(false);
       }
 
       setUsernameValidMessage("");
-      setUsernameVerifying(false);
+      return setUsernameVerifying(false);
     } catch (error) {
       console.error("Unable to validate username: " + error);
       setUsernameValidMessage("Unable to verify username");
-      setUsernameVerifying(false);
+      return setUsernameVerifying(false);
     }
   };
 
